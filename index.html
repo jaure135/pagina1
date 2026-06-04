@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Integración por Partes</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    padding:20px;
+}
+
+.contenedor{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    font-size:18px;
+    margin:10px 0;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    font-size:18px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+#resultado{
+    margin-top:20px;
+    padding:15px;
+    background:#dbeafe;
+    border-radius:5px;
+}
+</style>
+</head>
+<body>
+
+<div class="contenedor">
+
+<h1>Calculadora de Integración por Partes</h1>
+
+<p>Ingrese una función:</p>
+
+<input type="text" id="funcion"
+placeholder="Ejemplo: x*e^x">
+
+<button onclick="resolver()">Resolver</button>
+
+<div id="resultado"></div>
+
+</div>
+
+<script>
+
+function resolver(){
+
+    let f = document.getElementById("funcion").value
+            .replace(/\s/g,'');
+
+    let resultado = "";
+
+    if(f === "x*e^x"){
+
+        resultado = `
+        <h3>Procedimiento</h3>
+
+        u = x<br>
+        du = dx<br><br>
+
+        dv = e<sup>x</sup>dx<br>
+        v = e<sup>x</sup><br><br>
+
+        ∫xe<sup>x</sup>dx = uv - ∫vdu<br><br>
+
+        = xe<sup>x</sup> - ∫e<sup>x</sup>dx<br><br>
+
+        <b>Resultado:</b><br>
+        xe<sup>x</sup> - e<sup>x</sup> + C
+        `;
+    }
+
+    else if(f === "x*sin(x)"){
+
+        resultado = `
+        <h3>Procedimiento</h3>
+
+        u = x<br>
+        du = dx<br><br>
+
+        dv = sen(x)dx<br>
+        v = -cos(x)<br><br>
+
+        <b>Resultado:</b><br>
+
+        -xcos(x) + sen(x) + C
+        `;
+    }
+
+    else if(f === "x*cos(x)"){
+
+        resultado = `
+        <h3>Procedimiento</h3>
+
+        u = x<br>
+        du = dx<br><br>
+
+        dv = cos(x)dx<br>
+        v = sen(x)<br><br>
+
+        <b>Resultado:</b><br>
+
+        xsen(x) - cos(x) + C
+        `;
+    }
+
+    else if(f === "x*ln(x)"){
+
+        resultado = `
+        <h3>Procedimiento</h3>
+
+        u = ln(x)<br>
+        du = 1/x dx<br><br>
+
+        dv = x dx<br>
+        v = x²/2<br><br>
+
+        <b>Resultado:</b><br>
+
+        (x²/2)ln(x) - x²/4 + C
+        `;
+    }
+
+    else{
+
+        resultado = `
+        Esta versión reconoce:
+        <ul>
+        <li>x*e^x</li>
+        <li>x*sin(x)</li>
+        <li>x*cos(x)</li>
+        <li>x*ln(x)</li>
+        </ul>
+        `;
+    }
+
+    document.getElementById("resultado").innerHTML = resultado;
+}
+</script>
+
+</body>
+</html>
